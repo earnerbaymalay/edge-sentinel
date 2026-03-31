@@ -121,13 +121,36 @@ const SentinelAI = () => {
         body: JSON.stringify({ prompt })
       });
       
-      const data = await response.json();
+      const contentType = response.headers.get("content-type");
+      const responseText = await response.text();
+
+      if (!contentType || !contentType.includes("application/json")) {
+        console.error('Non-JSON response received:', responseText);
+        setAnalysis('ERROR: Server returned an invalid response. The AI Engine might be restarting or unavailable.');
+        return;
+      }
+
+      if (!responseText) {
+        setAnalysis('ERROR: Server returned an empty response.');
+        return;
+      }
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.error('Failed to parse JSON:', e, 'Response text:', responseText);
+        setAnalysis('ERROR: Failed to parse server response. Please try again.');
+        return;
+      }
       
       if (!response.ok) {
         if (response.status === 503) {
-          setAnalysis('ERROR: AI Engine not configured. Please authorize API access in the Security panel.');
+          setAnalysis('ERROR: AI Engine not configured. Please authorize API access in the Security panel or set GEMINI_API_KEY in secrets.');
+        } else if (response.status === 401) {
+          setAnalysis('ERROR: Invalid API Key. The provided key was rejected by the AI Engine. Please re-authorize in the Security panel.');
         } else {
-          throw new Error(data.error || 'Sentinel AI offline');
+          setAnalysis(`ERROR: ${data.error || 'Sentinel AI offline'}`);
         }
         return;
       }
@@ -196,6 +219,7 @@ export default function Dashboard() {
     logs: []
   });
   const [chartData, setChartData] = useState<any[]>([]);
+  const [installPrompt, setInstallPrompt] = useState<any>(null);
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
@@ -214,10 +238,27 @@ export default function Dashboard() {
       });
     });
 
+    const handleBeforeInstallPrompt = (e: any) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
     return () => {
       socketRef.current?.disconnect();
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
   }, []);
+
+  const handleInstall = async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setInstallPrompt(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#E4E3E0] font-sans p-4 lg:p-6 selection:bg-orange-500 selection:text-black">
@@ -231,7 +272,16 @@ export default function Dashboard() {
           <p className="text-[11px] font-mono text-gray-500 uppercase tracking-[0.2em]">Autonomous Security Telemetry • Snapdragon 480 Optimized</p>
         </div>
         
-        <div className="flex gap-6">
+        <div className="flex items-center gap-6">
+          {installPrompt && (
+            <button 
+              onClick={handleInstall}
+              className="bg-orange-500 hover:bg-orange-600 text-black text-[10px] font-mono font-bold uppercase px-3 py-1.5 rounded-sm transition-colors flex items-center gap-2"
+            >
+              <Smartphone className="w-3 h-3" />
+              Install App
+            </button>
+          )}
           <div className="text-right">
             <p className="text-[10px] font-mono text-gray-600 uppercase mb-1">Threat Level</p>
             <p className={`text-sm font-mono uppercase font-bold ${telemetry.threat_level === 'Low' ? 'text-green-500' : 'text-orange-500'}`}>

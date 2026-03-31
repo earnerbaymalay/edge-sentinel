@@ -18,17 +18,52 @@ export default defineConfig(({mode}) => {
           name: 'Edge Sentinel Dashboard',
           short_name: 'Edge Sentinel',
           description: 'Autonomous Security Telemetry Dashboard for Edge Devices.',
-          theme_color: '#f97316',
+          theme_color: '#0A0A0A',
+          background_color: '#0A0A0A',
+          display: 'standalone',
+          orientation: 'portrait',
           icons: [
             {
               src: 'https://picsum.photos/seed/sentinel-icon/192/192',
               sizes: '192x192',
-              type: 'image/png'
+              type: 'image/png',
+              purpose: 'any maskable'
             },
             {
               src: 'https://picsum.photos/seed/sentinel-icon/512/512',
               sizes: '512x512',
-              type: 'image/png'
+              type: 'image/png',
+              purpose: 'any maskable'
+            }
+          ]
+        },
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest}'],
+          runtimeCaching: [
+            {
+              urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'google-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
+            },
+            {
+              urlPattern: /^https:\/\/picsum\.photos\/.*/i,
+              handler: 'StaleWhileRevalidate',
+              options: {
+                cacheName: 'images-cache',
+                expiration: {
+                  maxEntries: 50,
+                  maxAgeSeconds: 60 * 60 * 24 * 30 // <== 30 days
+                }
+              }
             }
           ]
         }
