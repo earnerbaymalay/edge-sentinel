@@ -1,20 +1,54 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Edge Sentinel Dashboard v1.0.4
 
-# Run and deploy your AI Studio app
+Autonomous Security Telemetry Dashboard for Edge Devices, optimized for Snapdragon 480 5G and Termux environments.
 
-This contains everything you need to run your app locally.
+## 🚀 Quick Start (Termux)
 
-View your app in AI Studio: https://ai.studio/apps/6e377515-9996-4992-b8a8-b6bbd6a05c00
+If you have an older version, follow these steps to clean up and install the latest build.
 
-## Run Locally
+### 1. Cleanup Old Version
+```bash
+# Delete the existing local folder (be careful!)
+rm -rf edge-sentinel-dashboard
+```
 
-**Prerequisites:**  Node.js
+### 2. Installation
+```bash
+# Clone the latest version from your GitHub
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
 
+# Install dependencies
+npm install
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### 3. Configuration
+Create a `.env` file to store your API key:
+```bash
+echo "GEMINI_API_KEY=your_actual_api_key_here" > .env
+```
+
+### 4. Run the Dashboard
+```bash
+npm run dev
+```
+The dashboard will be available at `http://localhost:3000`.
+
+---
+
+## 📱 PWA Support
+This dashboard is a Progressive Web App. Once running:
+1. Open `http://localhost:3000` in your mobile browser (Chrome/Edge recommended).
+2. Click the **"Install App"** button in the header.
+3. The app will now run in standalone mode from your home screen.
+
+## 🛠 Tech Stack
+- **Frontend**: React 19, Tailwind CSS 4, Recharts, Lucide Icons
+- **Backend**: Node.js, Express, Socket.IO
+- **AI**: Google Gemini SDK (@google/genai)
+- **PWA**: Vite PWA Plugin
+
+## 🔒 Security
+- **Local-First**: Telemetry is processed locally on the device.
+- **AI Analysis**: Encrypted transmission to Gemini for threat assessment.
+- **Air-Gap Ready**: Designed to function in restricted network environments.
