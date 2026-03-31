@@ -1,0 +1,5 @@
+{
+  "name": "Edge Sentinel Dashboard",
+  "description": "Web-based security telemetry and AI analysis suite, mirroring the Edge Sentinel Mobile architecture with Gemini-powered intelligence.",
+  "requestFramePermissions": []
+}
