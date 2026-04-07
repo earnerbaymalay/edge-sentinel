@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentinel</title>
+    <style>
+        body { background: #0a0a0a; color: #4EAA25; font-family: monospace; padding: 20px; }
+        .box { border: 1px solid #005571; padding: 15px; margin-top: 10px; border-radius: 4px; }
+        h1 { color: #FF7F50; }
+        button { background: #005571; color: white; border: 1px solid #4EAA25; padding: 10px 15px; cursor: pointer; font-family: monospace; border-radius: 4px; margin-top: 10px; width: 100%; font-weight: bold;}
+        button:hover { background: #FF7F50; color: #0a0a0a; }
+    </style>
+</head>
+<body>
+    <h1>🛡️ EDGE-SENTINEL</h1>
+    
+    <button id="scanBtn">📡 INITIATE BLE SCAN</button>
+    
+    <div class="box" id="t">Awaiting Telemetry...</div>
+    <div class="box" id="a">Awaiting AI Analysis...</div>
+
+    <script>
+        // 1. Maintain the WebSocket to talk to main.py
+        const ws = new WebSocket("ws://localhost:8001/ws");
+        
+        ws.onmessage = e => {
+            const d = JSON.parse(e.data);
+            if(d.analysis) {
+                document.getElementById('a').innerText = "🧠 AI: " + d.analysis;
+            }
+        };
+
+        // 2. Web Bluetooth Native Scanning
+        document.getElementById('scanBtn').addEventListener('click', async () => {
+            const tDiv = document.getElementById('t');
+            try {
+                tDiv.innerText = "SCANNING RADIO...";
+                
+                // Triggers Android's native Bluetooth pairing UI
+                const device = await navigator.bluetooth.requestDevice({
+                    acceptAllDevices: false,
+                    filters: [{ services: ['battery_service'] }] 
+                });
+                
+                tDiv.innerText = `CONNECTING: ${device.name}...`;
+                
+                const server = await device.gatt.connect();
+                const service = await server.getPrimaryService('battery_service');
+                const characteristic = await service.getCharacteristic('battery_level');
+                
+                const value = await characteristic.readValue();
+                const percentage = value.getUint8(0);
+                
+                tDiv.innerText = `🔋 BATTERY: ${percentage}% [NATIVE BLE]`;
+                
+                // 3. Send the hardware data BACK to Python for AI analysis
+                if (ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({ telemetry: 'battery', percentage: percentage }));
+                    document.getElementById('a').innerText = "🧠 AI: Processing local telemetry...";
+                }
+                
+            } catch (error) {
+                tDiv.innerText = `❌ BLE ERROR: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>
+
