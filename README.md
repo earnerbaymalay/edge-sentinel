@@ -1,54 +1,33 @@
-# Edge Sentinel Dashboard v1.0.4
+<div align="center">
 
-Autonomous Security Telemetry Dashboard for Edge Devices, optimized for Snapdragon 480 5G and Termux environments.
+# 🛡️ E D G E — S E N T I N E L
+### *Hybrid Cyber-Security Telemetry & AI Dashboard*
 
-## 🚀 Quick Start (Termux)
-
-If you have an older version, follow these steps to clean up and install the latest build.
-
-### 1. Cleanup Old Version
-```bash
-# Delete the existing local folder (be careful!)
-rm -rf edge-sentinel-dashboard
-```
-
-### 2. Installation
-```bash
-# Clone the latest version from your GitHub
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-
-# Install dependencies
-npm install
-```
-
-### 3. Configuration
-Create a `.env` file to store your API key:
-```bash
-echo "GEMINI_API_KEY=your_actual_api_key_here" > .env
-```
-
-### 4. Run the Dashboard
-```bash
-npm run dev
-```
-The dashboard will be available at `http://localhost:3000`.
+[![Status](https://img.shields.io/badge/Status-Consolidated-81a1c1?style=for-the-badge)]()
+[![Stack](https://img.shields.io/badge/Stack-React_/_FastAPI-565f89?style=for-the-badge&logo=fastapi)]()
+[![AI](https://img.shields.io/badge/AI-Local_/_Cloud-4c566a?style=for-the-badge&logo=google-gemini)]()
 
 ---
+</div>
 
-## 📱 PWA Support
-This dashboard is a Progressive Web App. Once running:
-1. Open `http://localhost:3000` in your mobile browser (Chrome/Edge recommended).
-2. Click the **"Install App"** button in the header.
-3. The app will now run in standalone mode from your home screen.
+## 🧬 The Mission
+**Edge-Sentinel** is an advanced security monitoring suite designed for high-performance telemetry analysis. It bridges the gap between raw hardware metrics and intelligent security insights by utilizing a **Hybrid AI Engine** (Local GGUF via llama.cpp + Cloud-based Gemini).
+
+## 🚀 Key Features
+- **Real-Time Telemetry**: Live hardware analysis (Battery, CPU, Memory) via a dedicated FastAPI backend.
+- **Hybrid AI Analysis**: Secure, air-gapped local analysis for sensitive data, with optional high-reasoning cloud analysis.
+- **Professional Dashboard**: A high-end React-based interface featuring real-time charts, log streaming, and threat alerts.
+- **Aether-AI Ready**: Fully integrated into the Aether-AI "Neural Operating Interface" as a specialized security module.
 
 ## 🛠 Tech Stack
-- **Frontend**: React 19, Tailwind CSS 4, Recharts, Lucide Icons
-- **Backend**: Node.js, Express, Socket.IO
-- **AI**: Google Gemini SDK (@google/genai)
-- **PWA**: Vite PWA Plugin
+- **Frontend**: React 19, Tailwind CSS 4, Recharts, Framer Motion.
+- **Backend**: Python 3.13, FastAPI, WebSockets, Termux:API.
+- **Intelligence**: Native C++ llama.cpp (Local) & Google Gemini SDK (Cloud).
 
-## 🔒 Security
-- **Local-First**: Telemetry is processed locally on the device.
-- **AI Analysis**: Encrypted transmission to Gemini for threat assessment.
-- **Air-Gap Ready**: Designed to function in restricted network environments.
+## 📂 Consolidation Note
+This repository is the result of merging the `edge-sentinel` UI with the `Edge-Sentinel-Mobile` local-first engine. It represents the unified, flagship version of the project.
+
+---
+<div align="center">
+Security at the Edge. Absolute Privacy. Total Control.
+</div>
