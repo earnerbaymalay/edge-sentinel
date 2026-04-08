@@ -1,38 +1,25 @@
-<div align="center">
+# Edge Sentinel
 
-# 🛡️ E D G E — S E N T I N E L
-### *Local-First Security Telemetry & AI Dashboard*
-
-<p align="center">
-  <a href="https://earnerbaymalay.github.io/sideload/">
-    📲 <strong>Install on any device — phone, Mac, or iPad — from one place: Sideload Hub</strong>
-  </a>
-</p>
+Security monitoring with a real-time telemetry dashboard. React frontend, FastAPI backend with WebSocket streaming.
 
 [![Status](https://img.shields.io/badge/status-consolidated-81a1c1?style=for-the-badge)]()
 [![Stack](https://img.shields.io/badge/stack-React_%7C_FastAPI-565f89?style=for-the-badge&logo=fastapi)]()
-[![AI](https://img.shields.io/badge/ai-local_%7C_cloud-4c566a?style=for-the-badge)]()
-
-[Quick Start](#quick-start) · [Architecture](#architecture) · [Ecosystem](#ecosystem)
-
-</div>
+[![License](https://img.shields.io/badge/license-MIT-f1fa8c?style=for-the-badge)](LICENSE)
 
 ---
 
-## Overview
+## What It Does
 
-Edge-Sentinel is a security monitoring suite that bridges raw hardware metrics with intelligent security analysis. Real-time telemetry dashboard (React) powered by a FastAPI backend with optional AI analysis.
+Monitors hardware metrics and runs security analysis. FastAPI backend streams battery, CPU, and memory data over WebSockets to a React dashboard with live charts.
 
 ## Features
 
-| Feature | Status |
-|---------|--------|
-| Real-time hardware telemetry | ✅ Battery, CPU, Memory |
-| FastAPI backend with WebSockets | ✅ |
-| React dashboard with live charts | ✅ Recharts + Framer Motion |
-| Local AI analysis (llama.cpp) | ✅ |
-| Cloud AI analysis (Gemini) | ✅ Optional |
-| Security scanning integration | ✅ Aether vault-scan |
+- Real-time hardware telemetry (battery, CPU, memory)
+- FastAPI backend with WebSocket streaming
+- React dashboard with Recharts and Framer Motion
+- Local AI analysis via llama.cpp
+- Optional cloud AI analysis via Gemini
+- Security scanning integration with Aether vault-scan
 
 ## Quick Start
 
@@ -52,33 +39,14 @@ Dashboard opens at `http://localhost:5173`, API at `http://localhost:8000`.
 
 ```
 edge-sentinel/
-├── backend/
-│   └── main.py          # FastAPI + WebSocket telemetry server
-├── src/
-│   ├── App.tsx           # React dashboard
-│   └── components/       # Chart, metric, and alert components
+├── backend/main.py       # FastAPI + WebSocket telemetry server
+├── src/App.tsx           # React dashboard
+├── src/components/       # Chart, metric, and alert components
 ├── server.ts             # Express + Socket.io (legacy)
-├── vite.config.ts        # Vite build config
-└── package.json          # Node dependencies
+├── vite.config.ts
+└── package.json
 ```
-
-## Ecosystem
-
-Edge-Sentinel is part of the local-first app ecosystem:
-
-| Project | Repo | Purpose |
-|---------|------|---------|
-| 🌌 Aether | [aether](https://github.com/earnerbaymalay/aether) | Local AI workstation |
-| 🛡️ Edge Sentinel | (this repo) | Security telemetry dashboard |
-| 🛡️ Cypherchat | [e2eecc](https://github.com/earnerbaymalay/e2eecc) | E2EE messaging |
-| 🌗 Gloam | [Gloam](https://github.com/earnerbaymalay/Gloam) | Solar-timed journaling |
-
-📲 **[Install any app from the Sideload Hub →](https://earnerbaymalay.github.io/sideload/)**
 
 ---
 
-<div align="center">
-
-Security at the Edge. Absolute Privacy. Total Control.
-
-</div>
+[MIT License](LICENSE)
