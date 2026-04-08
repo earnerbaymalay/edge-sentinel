@@ -1,0 +1,56 @@
+name: Edge Sentinel CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate package.json
+        run: python3 -c "
+import json
+data = json.load(open('package.json'))
+assert data.get('name') == 'edge-sentinel', f'Package name is {data.get(\"name\")}'
+print(f'✓ package.json valid: {data[\"name\"]}')
+"
+
+      - name: Check critical files
+        run: |
+          REQUIRED="README.md package.json backend/main.py"
+          MISSING=0
+          for f in $REQUIRED; do
+            if [ ! -f "$f" ]; then
+              echo "✗ Missing: $f"
+              MISSING=$((MISSING+1))
+            fi
+          done
+          if [ $MISSING -gt 0 ]; then
+            exit 1
+          else
+            echo "✓ All critical files present"
+          fi
+
+      - name: Check README has Sideload link
+        run: |
+          if grep -q "sideload" README.md; then
+            echo "✓ README contains Sideload link"
+          else
+            echo "✗ README missing Sideload link"
+            exit 1
+          fi

@@ -1,5 +1,5 @@
 {
-  "name": "react-example",
+  "name": "edge-sentinel",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -37,5 +37,6 @@
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
     "vite-plugin-pwa": "^1.2.0"
-  }
+  },
+  "description": "Local-first security telemetry dashboard with AI analysis"
 }
