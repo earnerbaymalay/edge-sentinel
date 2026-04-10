@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="160" viewBox="0 0 720 160">
+  <defs>
+    <linearGradient id="edgeGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="720" height="160" fill="#0d1117" rx="12"/>
+  <!-- Radar/signal icon -->
+  <g transform="translate(100,80)" filter="url(#glow)">
+    <circle cx="0" cy="0" r="35" fill="none" stroke="url(#edgeGrad)" stroke-width="1.5" opacity="0.3"/>
+    <circle cx="0" cy="0" r="25" fill="none" stroke="url(#edgeGrad)" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="0" cy="0" r="15" fill="none" stroke="url(#edgeGrad)" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="0" cy="0" r="5" fill="url(#edgeGrad)"/>
+    <!-- Sweeping arc -->
+    <path d="M 0 0 L 30 -20 A 35 35 0 0 1 35 0" fill="none" stroke="#f97316" stroke-width="1.5" opacity="0.6">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <!-- Callouts -->
+  <text x="200" y="48" fill="#f97316" font-family="monospace" font-size="12" font-weight="600">FastAPI + WebSocket Streaming</text>
+  <text x="200" y="68" fill="#94a3b8" font-family="sans-serif" font-size="12">Real-time battery, CPU, memory telemetry</text>
+  <text x="200" y="98" fill="#3fb950" font-family="monospace" font-size="12" font-weight="600">React Dashboard</text>
+  <text x="200" y="118" fill="#94a3b8" font-family="sans-serif" font-size="12">Recharts live graphs · Framer Motion animations</text>
+  <text x="500" y="48" fill="#58a6ff" font-family="monospace" font-size="12" font-weight="600">Local AI Analysis</text>
+  <text x="500" y="68" fill="#94a3b8" font-family="sans-serif" font-size="12">llama.cpp on-device security scanning</text>
+  <text x="500" y="98" fill="#bc8cff" font-family="monospace" font-size="12" font-weight="600">Aether Integration</text>
+  <text x="500" y="118" fill="#94a3b8" font-family="sans-serif" font-size="12">vault-scan · Cloud AI via Gemini (optional)</text>
+  <line x1="470" y1="30" x2="470" y2="135" stroke="#21262d" stroke-width="1"/>
+</svg>
